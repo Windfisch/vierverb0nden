@@ -6,7 +6,7 @@ class GameState:
 
 		self.stacksizes = 7*[0]
 	
-	def drop(self, player_id, column_idx):
+	def drop(self, column_idx,player_id):
 		assert(player_id in [-1,1])
 
 		self.state[column_idx][ self.stacksizes[column_idx] ] = player_id
@@ -39,9 +39,23 @@ class GameState:
 
 def testSomebodyWin():
 	gs = GameState()
-	gs.drop(-1,0)
-	gs.drop(-1,2)
-	gs.drop(-1,3)
+	gs.drop(0,-1)
+	gs.drop(2,-1)
+	gs.drop(3,-1)
 	
 	return gs.check_win()
+
+def hashGameState(gameState,stacksizes):
+	deletedMinusOne = list(map(lambda x : [1 if y==1 else 0 for y in x],gameState))
 	
+	_hash = 0
+	for column in range(7):
+		for row in range(6):
+			_hash = _hash*2 + deletedMinusOne[column][row]
+		_hash = _hash * 8 + stackSizes[column]
+			
+
+	return _hash		
+
+print testSomebodyWin()
+			
