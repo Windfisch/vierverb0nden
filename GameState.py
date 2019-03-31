@@ -7,15 +7,15 @@ class GameState:
 		self.stacksizes = 7*[0]
 	
 	def flipColors(self):
-		self.state = list(map(lambda x : [-y for y in x]),self.state))
+		self.state = list(map(lambda x : [-y for y in x]),self.state)
 		
 	def clone(self):
 		newState = GameState()
-		newState.state = list(map(lambda x : list(map(lambda y : y,x),self.state)))
+		newState.state = list(map(lambda x : list(map(lambda y : y,x)),self.state))
 		return newState
 	
-	def drop_clone(self,column_idx,player_id):
-		cloned = clone()
+	def drop(self,column_idx,player_id):
+		cloned = self.clone()
 		if not cloned.drop_inplace(column_idx,player_id):
 			return None
 		return cloned
