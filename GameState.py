@@ -12,6 +12,7 @@ class GameState:
 	def clone(self):
 		newState = GameState()
 		newState.state = list(map(lambda x : list(map(lambda y : y,x)),self.state))
+		newState.stacksizes = [x for x in self.stacksizes]
 		return newState
 	
 	def drop(self,column_idx,player_id):
