@@ -9,11 +9,27 @@ class GameState:
 	def flip(self):
 		self.state = list(map(lambda x : [-y for y in x]),self.state))
 	
-	def drop(self, column_idx,player_id):
+	def clone(self):
+		newState = GameState()
+		newState.state = list(map(lambda x : list(map(lambda y : y,x),self.state)))
+		return newState
+	
+	def drop_clone(self,column_idx,player_id):
+		cloned = clone()
+		if not cloned.drop_inplace(column_idx,player_id):
+			return None
+		return cloned
+	
+	def drop_inplace(self, column_idx,player_id):
+		if(self.stacksizes[column_idx] >= 6):
+			return False
+		
 		assert(player_id in [-1,1])
 
 		self.state[column_idx][ self.stacksizes[column_idx] ] = player_id
 		self.stacksizes[column_idx] += 1
+		
+		return True
 		
 	def gameStateSafeAccess(self,col,row):
 		if (col < 0) or (col > 6):
