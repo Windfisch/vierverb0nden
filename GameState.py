@@ -70,6 +70,8 @@ class GameState:
 	
 	def __eq__(self, other):
 		return self.__hash__() == other.__hash__()
+	def __str__(self):
+		return str(self.state)
 
 def testSomebodyWin():
 	gs = GameState()
