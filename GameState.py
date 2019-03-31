@@ -37,6 +37,21 @@ class GameState:
 					return -1
 		return 0
 
+	def __hash__(self):
+		deletedMinusOne = list(map(lambda x : [1 if y==1 else 0 for y in x],self.state))
+		
+		_hash = 0
+		for column in range(7):
+			for row in range(6):
+				_hash = _hash*2 + deletedMinusOne[column][row]
+			_hash = _hash * 8 + self.stacksizes[column]
+				
+
+		return _hash
+	
+	def __eq__(self, other):
+		return self.__hash__() == other.__hash__()
+
 def testSomebodyWin():
 	gs = GameState()
 	gs.drop(0,-1)
@@ -45,17 +60,5 @@ def testSomebodyWin():
 	
 	return gs.check_win()
 
-def hashGameState(gameState,stacksizes):
-	deletedMinusOne = list(map(lambda x : [1 if y==1 else 0 for y in x],gameState))
-	
-	_hash = 0
-	for column in range(7):
-		for row in range(6):
-			_hash = _hash*2 + deletedMinusOne[column][row]
-		_hash = _hash * 8 + stackSizes[column]
-			
 
-	return _hash		
-
-print testSomebodyWin()
-			
+print(testSomebodyWin())
