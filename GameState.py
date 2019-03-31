@@ -39,7 +39,6 @@ class GameState:
 		return self.state[col][row]
 
 	def check_win(self):
-		print(self.state)
 		for column in range(7):
 			for row in range(6):
 				verticalValue = sum(map(lambda x : self.gameStateSafeAccess(column,row+x),range(4)))
