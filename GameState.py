@@ -6,6 +6,9 @@ class GameState:
 
 		self.stacksizes = 7*[0]
 	
+	def flip(self):
+		self.state = list(map(lambda x : [-y for y in x]),self.state))
+	
 	def drop(self, column_idx,player_id):
 		assert(player_id in [-1,1])
 
