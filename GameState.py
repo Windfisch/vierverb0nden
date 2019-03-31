@@ -6,9 +6,9 @@ class GameState:
 
 		self.stacksizes = 7*[0]
 	
-	def flip(self):
+	def flipColors(self):
 		self.state = list(map(lambda x : [-y for y in x]),self.state))
-	
+		
 	def clone(self):
 		newState = GameState()
 		newState.state = list(map(lambda x : list(map(lambda y : y,x),self.state)))
