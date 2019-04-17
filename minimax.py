@@ -1,5 +1,6 @@
 from GameState import GameState
 import sys
+from math import log
 
 sys.setrecursionlimit(99999)
 
@@ -41,26 +42,45 @@ def minimax(gamestate, player_idx, recursion_limit, cache):
 		cache[gamestate] = 0.5 * best * player_idx
 		return 0.5 * best * player_idx
 
-print("testing minimax")
+#print("testing minimax")
 
 
-gs = GameState()
-gs.drop_inplace(3,-1)
-gs.drop_inplace(4,-1)
-gs.drop_inplace(4,-1)
-gs.drop_inplace(3,-1)
-gs.drop_inplace(0,1)
-gs.drop_inplace(1,1)
-gs.drop_inplace(0,1)
+#gs = GameState()
+#gs.drop_inplace(3,-1)
+#gs.drop_inplace(2,-1)
+#gs.drop_inplace(2,-1)
+#gs.drop_inplace(3,-1)
+#gs.drop_inplace(0,1)
+#gs.drop_inplace(6,1)
+#gs.drop_inplace(0,1)
 
-
-def minimax_bfs(gamestate, player_idx, limit):
-	cache = {}
+cache = {}
+limit = 5
+def minimax_bfs(gamestate, player_idx):
+	#cache = {}
 	for i in range(limit+1):
+		#print("limit %d" % i)
 		result = minimax(gamestate, player_idx, i, cache)
 		if result != None:
 			return result
+	
+	cache[gamestate] = None
 	return None
 	
+def sign(n):
+	if n<0: return -1
+	if n>0: return 1
+	return 0
 
-print( minimax_bfs(gs, -1, 3) )
+def prettify_result(num):
+	if num == 0 or num == None:
+		return 0
+	else:
+		return sign(num) * (-round(log(abs(num),2)))
+
+def pprint(num):
+	if num == 0 or num == None:
+		print("?")
+	else:
+		print("%d wins in %d turns" % (num/abs(num), -round(log(abs(num),2))))
+
